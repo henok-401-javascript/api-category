@@ -6,12 +6,14 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
 count:{type:'number' , require:true},
-category: [{ type: 'String', required: true}],
+category: { type: 'String', required: true},
 currentCategory:{type:'string' , require:true},
-image:{type:'string' , require:true}
+categoryDisplayName: { type: 'String', required: true},
+
 }) 
 
-let model = mongoose.model('categories' , schema);
+
+let model = mongoose.model('category' , schema);
 
 module.exports = model;
 

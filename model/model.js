@@ -5,13 +5,14 @@ class Model{
    this.schema = schema;
  }
  async readAll() {
-  let result = await this.schema.find();
-  return result;
+     let result = await this.schema.find();
+     return result;
+
 }
  async create(data){
    console.log('schema',data)
    let result = await this.schema.create(data);
-   return result.save();
+   return result;
  }
  async update(){}
  async delete(){}
