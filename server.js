@@ -3,17 +3,14 @@ const mongoose = require('mongoose');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
-const schema = require('./model/category.schema.js');
-// const Model = require('./model/model.js');
-const categoryHandler = require('./lib/router');
-
 const {category} = require ('./model/model.js');
 
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
 const app = express();
 app.use(cors());
-// app.use('/category' , router);
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.listen(PORT , () =>{
   console.log('server is up at ' , PORT);
@@ -27,28 +24,23 @@ mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true,
 });
 
-app.use('/category' , categoryHandler);
 
-router.get('/category' , async (req , res) =>{
+app.get('/category' , async (req , res) =>{
   let response = await category.readAll();
   res.send(response);
 })
 
-router.post('/category' , async (req , res) =>{
-  let response = await category.create();
+app.post('/category' , async (req , res) =>{
+  console.log('req.body',req.body);
+  let response = await category.create(req.body);
   res.send(response);
 })
-function startHandler(){
+
   app.get('/' , (req , res) =>{
     res.send('HOME PAGE');
   })
-}
 
 
-module.exports = {
-  server:app,
-  start: startHandler
-}
 
 
 
